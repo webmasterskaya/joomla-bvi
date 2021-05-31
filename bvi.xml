@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.8" group="system" method="upgrade">
+	<name>PLG_SYSTEM_BVI</name>
+	<creationDate>30.05.2021</creationDate>
+	<author>Artem Vasilev - Webmasterskaya</author>
+	<authorEmail>dev@webmasterskaya.xyz</authorEmail>
+	<authorUrl>https://webmasterskaya.xyz</authorUrl>
+	<copyright>Copyright (C) 2021 Webmasterskaya. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
+	<version>1.0</version>
+	<description>PLG_SYSTEM_BVI_XML_DESCRIPTION</description>
+
+	<!-- Scripts to run on installation -->
+	<scriptfile>script.php</scriptfile>
+
+	<!-- Language files -->
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_bvi.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_bvi.sys.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.plg_system_bvi.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.plg_system_bvi.sys.ini</language>
+	</languages>
+
+	<!-- Plugin files -->
+	<files>
+		<filename plugin="bvi">bvi.php</filename>
+		<folder>language</folder>
+	</files>
+
+	<!-- Media files -->
+	<media destination="plg_system_bvi" folder="media">
+		<folder>css</folder>
+		<folder>js</folder>
+	</media>
+
+	<!-- Layouts files -->
+	<layouts destination="plugins/system/bvi" folder="layouts">
+		<folder>toolbar</folder>
+	</layouts>
+
+	<!-- Update server-->
+	<updateservers>
+		<server type="extension" priority="1" name="bvi">
+			https://webmasterskaya.xyz/updates?element=joomla-bvi
+		</server>
+	</updateservers>
+</extension>
