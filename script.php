@@ -1,14 +1,4 @@
-<?php
-/**
- * @package     Joomla.Plugin
- * @subpackage  System.BVI
- *
- * @version     1.0.0
- * @author      Artem Vasilev - webmasterskaya.xyz
- * @copyright   Copyright (c) 2021 Webmasterskaya. All rights reserved.
- * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
- * @link        https://webmasterskaya.xyz/
- */
+<?php defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
@@ -20,8 +10,6 @@ use Joomla\CMS\Installer\InstallerAdapter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Version;
-
-defined('_JEXEC') or die;
 
 class plgSystemBviInstallerScript
 {

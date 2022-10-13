@@ -1,16 +1,4 @@
-<?php
-/**
- * @package     Joomla.Plugin
- * @subpackage  System.BVI
- *              
- * @version    1.0.0
- * @author     Artem Vasilev - webmasterskaya.xyz
- * @copyright  Copyright (c) 2021 Webmasterskaya. All rights reserved.
- * @license    GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
- * @link       https://webmasterskaya.xyz/
- */
-
-defined('_JEXEC') or die;
+<?php defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -57,19 +45,20 @@ class plgSystemBvi extends CMSPlugin
 			return;
 		}
 
-		$bvi_cookie = $this->app->input->cookie->get('bvi-panel-active', null, 'cmd');
+		$bvi_cookie  = $this->app->input->cookie->get('bvi-panel-active', null, 'cmd');
 		$bvi_request = $this->app->input->get('bvi-panel-active', null, 'int');
 
 		if ($bvi_request !== null)
 		{
-			$this->bvi_panel_active = (bool)$bvi_request;
-		} else {
-			if($bvi_cookie !== null){
-				$this->bvi_panel_active = ($bvi_cookie == 'true');
-			}
-			else {
-				$this->bvi_panel_active = false;
-			}
+			$this->bvi_panel_active = (bool) $bvi_request;
+		}
+		elseif ($bvi_cookie !== null)
+		{
+			$this->bvi_panel_active = ($bvi_cookie === 'true');
+		}
+		else
+		{
+			$this->bvi_panel_active = false;
 		}
 
 		$this->app->input->cookie->set(
@@ -92,115 +81,54 @@ class plgSystemBvi extends CMSPlugin
 	 */
 	public function onBeforeCompileHead()
 	{
-		if ($this->bvi_panel_active)
-		{
-			HTMLHelper::_(
-				'stylesheet', 'plg_system_bvi/bvi.min.css',
-				['relative' => true, 'version' => 'auto']
-			);
-			HTMLHelper::_(
-				'script', 'plg_system_bvi/bvi.min.js',
-				['relative' => true, 'version' => 'auto'],
-				['defer' => true]
-			);
-			HTMLHelper::_(
-				'script', 'plg_system_bvi/js.cookie.min.js',
-				['relative' => true, 'version' => 'auto'],
-				['defer' => true]
-			);
-			HTMLHelper::_(
-				'script', 'plg_system_bvi/bvi-init.min.js',
-				['relative' => true, 'version' => 'auto'],
-				['defer' => true]
-			);
-		}
-	}
-
-	public function onContentPrepare($context, &$item, &$params, $page = 0)
-	{
-		// If the item has a context, overwrite the existing one
-		if ($context == 'com_finder.indexer' && !empty($item->context))
-		{
-			$context = $item->context;
-		}
-		elseif ($context == 'com_finder.indexer')
-		{
-			// Don't run this plugin when the content is being indexed and we have no real context
-			return;
-		}
-
-		// Don't run if there is no text property (in case of bad calls) or it is empty
-		if (empty($item->text))
+		if (!$this->bvi_panel_active)
 		{
 			return;
 		}
 
-		// Simple performance check to determine whether bot should process further
-		if (strpos($item->text, 'bvi_target') === false)
-		{
-			return;
-		}
-
-		// Prepare the text
-		if (isset($item->text))
-		{
-			$item->text = $this->prepare($item->text);
-		}
-
-		// Prepare the intro text
-		if (isset($item->introtext))
-		{
-			$item->introtext = $this->prepare($item->introtext);
-		}
-	}
-
-	protected function prepare($string)
-	{
-		ob_start();
-		echo LayoutHelper::render(
-			'plugins.system.bvi.toolbar.link',
-			['panel_active' => $this->bvi_panel_active]
+		HTMLHelper::_(
+			'stylesheet', 'plg_system_bvi/bvi.css',
+			['relative' => true, 'version' => 'auto']
 		);
-		$target_template = ob_get_clean();
 
-		$string = str_replace('{bvi_target}', $target_template, $string);
+		HTMLHelper::_(
+			'script', 'plg_system_bvi/bvi.js',
+			['relative' => true, 'version' => 'auto'],
+			['defer' => true]
+		);
 
-		return $string;
+		HTMLHelper::_(
+			'script', 'plg_system_bvi/bvi-init.min.js',
+			['relative' => true, 'version' => 'auto'],
+			['defer' => true]
+		);
+
 	}
+
 
 	public function onAfterRender()
 	{
-		// TODO: Вынести все скрипты в подвал
-		// TODO: Сделать все скрипты отложенными
-		// TODO: Сделать init через wait
-		return true;
+		if (!$this->app->isClient('site'))
+		{
+			return;
+		}
 
-		if (!$this->bvi_panel_active)
+		$body = $this->app->getBody();
+
+		if (strpos($body, '{bvi_target}') === false)
 		{
 			return true;
 		}
-		$bvi_scripts = '';
 
-		$bvi_scripts_paths = [
-			'bvi'    => HTMLHelper::_(
-				'script', 'plg_system_bvi/bvi.min.js',
-				['relative' => true, 'version' => 'auto', 'pathOnly' => true]
-			),
-			'cookie' => HTMLHelper::_(
-				'script', 'plg_system_bvi/js.cookie.min.js',
-				['relative' => true, 'version' => 'auto', 'pathOnly' => true]
-			),
-			'init'   => HTMLHelper::_(
-				'script', 'plg_system_bvi/bvi-init.min.js',
-				['relative' => true, 'version' => 'auto', 'pathOnly' => true]
-			),
-		];
-		// Embed the code before the closing tag </body>.
-		$body = $this->app->getBody();
-		$body = str_replace("</body>", $bvi_scripts . "</body>", $body);
+		$body = str_replace('{bvi_target}', LayoutHelper::render(
+			'plugins.system.bvi.toolbar.link',
+			['panel_active' => $this->bvi_panel_active]
+		), $body);
 
 		$this->app->setBody($body);
 
 		return true;
 	}
+
+
 }

@@ -1,16 +1,44 @@
-jQuery(document).ready(function($){
-    $.bvi({
-        'bvi_target' : '.bvi-open', // Класс ссылки включения плагина
-        "bvi_theme" : "white", // Цвет сайта
-        "bvi_font" : "arial", // Шрифт
-        "bvi_font_size" : 16, // Размер шрифта
-        "bvi_letter_spacing" : "normal", // Межбуквенный интервал
-        "bvi_line_height" : "normal", // Междустрочный интервал
-        "bvi_images" : true, // Изображения
-        "bvi_reload" : false, // Перезагрузка страницы при выключении плагина
-        "bvi_fixed" : false, // Фиксирование панели для слабовидящих вверху страницы
-        "bvi_tts" : true, // Синтез речи
-        "bvi_flash_iframe" : true, // Встроенные элементы (видео, карты и тд.)
-        "bvi_hide" : false // Скрывает панель для слабовидящих и показывает иконку панели.
+document.addEventListener('DOMContentLoaded', function() {
+
+    let bvi_open = document.querySelector('.bvi-open');
+
+    if(
+        bvi_open === null ||
+        bvi_open === undefined
+    ) {
+        return;
+    }
+
+    new isvek.Bvi({
+        "option":
+            {
+                'target' : '.bvi-open',
+                "theme": "white",
+                "font": "arial",
+                "fontSize": 16,
+                "letterSpacing": "normal",
+                "lineHeight": "normal",
+                "images": true,
+                "reload": false,
+                "speech": true,
+                "builtElements": true,
+                "panelHide": false,
+                "panelFixed": false,
+                "lang":"ru-RU"
+            }
     });
+
+
+    setTimeout(function (){
+        let bvi_body = document.querySelector('.bvi-body');
+
+        if(
+            bvi_open.getAttribute('data-active') === '1' &&
+            (bvi_body === undefined || bvi_body === null)
+        ) {
+            bvi_open.click();
+        }
+
+    }, 200);
+
 });
