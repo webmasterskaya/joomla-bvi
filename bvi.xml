@@ -39,4 +39,44 @@
 		<folder>toolbar</folder>
 	</layouts>
 
+	<!-- Config -->
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="openeye"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_ICON"
+					   class="btn-group"
+					   default="1">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="opentext"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_ICON"
+					   class="btn-group"
+					   default="0">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="closeeye"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_CLOSE_ICON"
+					   class="btn-group"
+					   default="1">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="closetext"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_CLOSE_TEXT"
+					   class="btn-group"
+					   default="0">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+
 </extension>

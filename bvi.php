@@ -122,7 +122,13 @@ class plgSystemBvi extends CMSPlugin
 
 		$body = str_replace('{bvi_target}', LayoutHelper::render(
 			'plugins.system.bvi.toolbar.link',
-			['panel_active' => $this->bvi_panel_active]
+			[
+				'panel_active' => $this->bvi_panel_active,
+				'openeye'      => (int) $this->params->get('openeye', 1),
+				'opentext'     => (int) $this->params->get('opentext', 0),
+				'closeeye'     => (int) $this->params->get('closeeye', 1),
+				'closetext'    => (int) $this->params->get('closetext', 0),
+			]
 		), $body);
 
 		$this->app->setBody($body);
