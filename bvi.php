@@ -29,48 +29,6 @@ class plgSystemBvi extends CMSPlugin
 	 */
 	protected $autoloadLanguage = true;
 
-	protected $bvi_panel_active = false;
-
-	/**
-	 * onAfterInitialise.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0.0
-	 */
-	public function onAfterInitialise()
-	{
-		if (!$this->app->isClient('site'))
-		{
-			return;
-		}
-
-		$bvi_cookie  = $this->app->input->cookie->get('bvi-panel-active', null, 'cmd');
-		$bvi_request = $this->app->input->getInputForRequestMethod()->get('bvi-panel-active', null, 'int');
-
-		if ($bvi_request !== null)
-		{
-			$this->bvi_panel_active = (bool) $bvi_request;
-		}
-		elseif ($bvi_cookie !== null)
-		{
-			$this->bvi_panel_active = ($bvi_cookie === 'true');
-		}
-		else
-		{
-			$this->bvi_panel_active = false;
-		}
-
-		$this->app->input->cookie->set(
-			'bvi-panel-active',
-			$this->bvi_panel_active ? 'true' : 'false',
-			time() + 86400, // Живёт сутки
-			$this->app->get('cookie_path', '/'),
-			$this->app->get('cookie_domain'),
-			$this->app->isSSLConnection()
-		);
-
-	}
 
 	/**
 	 * onAfterCompileHead.
@@ -81,7 +39,8 @@ class plgSystemBvi extends CMSPlugin
 	 */
 	public function onBeforeCompileHead()
 	{
-		if (!$this->bvi_panel_active)
+
+		if (!$this->app->isClient('site'))
 		{
 			return;
 		}
