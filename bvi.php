@@ -46,7 +46,7 @@ class plgSystemBvi extends CMSPlugin
 		}
 
 		$bvi_cookie  = $this->app->input->cookie->get('bvi-panel-active', null, 'cmd');
-		$bvi_request = $this->app->input->get('bvi-panel-active', null, 'int');
+		$bvi_request = $this->app->input->getInputForRequestMethod()->get('bvi-panel-active', null, 'int');
 
 		if ($bvi_request !== null)
 		{

@@ -22,7 +22,7 @@ $data = (object) $displayData;
     <input type="hidden" name="bvi-panel-active"
            value="<?php echo $data->panel_active ? 0 : 1; ?>">
     <button role="button" type="submit"
-            class="uk-button-small uk-button uk-button-text bvi-button-toggle"
+            class="uk-button-small uk-button uk-button-link bvi-button-toggle"
             title="<?php echo htmlspecialchars(
 		        Text::_(
 			        'PLG_SYSTEM_BVI_BUTTON_TEXT_' . ($data->panel_active ? 1 : 0)
