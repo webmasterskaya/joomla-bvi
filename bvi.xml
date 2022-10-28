@@ -53,7 +53,7 @@
 				</field>
 				<field name="opentext"
 					   type="radio"
-					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_ICON"
+					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_TEXT"
 					   class="btn-group"
 					   default="0">
 					<option value="1">JYES</option>

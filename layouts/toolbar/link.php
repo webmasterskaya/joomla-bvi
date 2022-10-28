@@ -22,7 +22,7 @@ $data = (object) $displayData;
 	<?php if($data->opentext) : ?>
         <span>
                 <?php echo Text::_(
-	                'PLG_SYSTEM_BVI_BUTTON_TEXT_1'
+	                'PLG_SYSTEM_BVI_BUTTON_TEXT_0'
                 ); ?>
             </span>
 	<?php endif; ?>
