@@ -1,40 +1,29 @@
-<?php
-/**
- * @package     Joomla.Plugin
- * @subpackage  System.BVI
- *
- * @version    1.0.0
- * @author     Artem Vasilev - webmasterskaya.xyz
- * @copyright  Copyright (c) 2021 Webmasterskaya. All rights reserved.
- * @license    GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
- * @link       https://webmasterskaya.xyz/
- */
+<?php defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
-
-defined('_JEXEC') or die;
 
 /** @var array $displayData */
 $data = (object) $displayData;
 ?>
 
-<form action="" method="post">
-	<input type="hidden" name="bvi-panel-active"
-		   value="<?php echo $data->panel_active ? 0 : 1; ?>">
-	<button role="button" type="submit"
-			class="uk-button-small uk-button uk-button-text"
-			title="<?php echo htmlspecialchars(
-		        Text::_(
-			        'PLG_SYSTEM_BVI_BUTTON_TEXT_' . ($data->panel_active ? 1 : 0)
-		        )
-	        ); ?>">
-		<?php echo Text::_(
-			'PLG_SYSTEM_BVI_BUTTON_TEXT_' . ($data->panel_active ? 1 : 0)
-		); ?>
-	</button>
-</form>
+<style>
 
-<?php /* Это кАстыль для скрытия стандартных кнопок панели */ ?>
-<div style="display: none !important;">
-	<a href="#" class="bvi-open"> </a>
-</div>
+    .bvi-icon-margin {
+        margin-right: 5px;
+    }
+
+</style>
+
+<a href="#" class="bvi-open">
+	<?php if($data->openeye) : ?>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" <?php if($data->opentext) : ?>class="bvi-icon-margin"<?php endif; ?>><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="translate(1 1)"><path d="M0 8s4-8 11-8 11 8 11 8-4 8-11 8S0 8 0 8z"/><circle cx="11" cy="8" r="3"/></g></svg>
+	<?php endif; ?>
+
+	<?php if($data->opentext) : ?>
+        <span>
+                <?php echo Text::_(
+	                'PLG_SYSTEM_BVI_BUTTON_TEXT_0'
+                ); ?>
+            </span>
+	<?php endif; ?>
+</a>

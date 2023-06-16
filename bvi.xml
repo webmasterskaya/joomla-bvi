@@ -3,8 +3,8 @@
 	<name>PLG_SYSTEM_BVI</name>
 	<creationDate>30.05.2021</creationDate>
 	<author>Artem Vasilev - Webmasterskaya</author>
-	<authorEmail>dev@webmasterskaya.xyz</authorEmail>
-	<authorUrl>https://webmasterskaya.xyz</authorUrl>
+	<authorEmail>cymbal@delo-design.ru</authorEmail>
+	<authorUrl>delo-design.ru</authorUrl>
 	<copyright>Copyright (C) 2021 Webmasterskaya. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<version>1.0</version>
@@ -30,6 +30,7 @@
 	<!-- Media files -->
 	<media destination="plg_system_bvi" folder="media">
 		<folder>css</folder>
+		<folder>img</folder>
 		<folder>js</folder>
 	</media>
 
@@ -38,10 +39,28 @@
 		<folder>toolbar</folder>
 	</layouts>
 
-	<!-- Update server-->
-	<updateservers>
-		<server type="extension" priority="1" name="bvi">
-			https://webmasterskaya.xyz/updates?element=joomla-bvi
-		</server>
-	</updateservers>
+	<!-- Config -->
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="openeye"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_ICON"
+					   class="btn-group"
+					   default="1">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="opentext"
+					   type="radio"
+					   label="PLG_SYSTEM_BVI_CONFIG_OPEN_TEXT"
+					   class="btn-group"
+					   default="0">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+
 </extension>
